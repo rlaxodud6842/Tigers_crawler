@@ -8,6 +8,15 @@
 >JavaScript,
 >HTML
 
+#selenium 실행을 위한 환경 설정
+
+>brew install python
+
+>pip install selenium
+
+>실행시
+>python crawler.py
+
 # web 실행을 위한 환경변수 설정
 
 > npm init -y
