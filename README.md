@@ -16,6 +16,15 @@
 
 > npm install mysql2 sequelize
 
+### DB 설정
+> CREATE DATABASE mydatabase;
+
+> CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'mypassword';
+
+>GRANT ALL PRIVILEGES ON mydatabase.* TO 'myuser'@'localhost';
+
+>FLUSH PRIVILEGES;
+
 ### 실행 방법
 > node server.js
 
