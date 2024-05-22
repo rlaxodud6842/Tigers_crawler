@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const { User } = require('./models');  // ./models/index.js를 가져옴
 
 const app = express();
 const PORT = 3000;
@@ -12,9 +13,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-
-// 사용자 데이터를 저장하기 위한 임시 데이터베이스 (배열 사용)
-let users = [];
 
 // 정적 파일 제공
 app.use(express.static('public'));
@@ -33,26 +31,34 @@ app.get('/login', (req, res) => {
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-  users.push({ username, password: hashedPassword });
-  res.redirect('/login');
+  try {
+    await User.create({ username, password: hashedPassword });
+    res.redirect('/login');
+  } catch (error) {
+    res.status(500).send('Error during registration');
+  }
 });
 
 // 로그인 처리 라우트
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  const user = users.find(user => user.username === username);
-  if (user && await bcrypt.compare(password, user.password)) {
-    req.session.userId = user.username;
-    return res.redirect('/dashboard');
-  } else {
-    return res.redirect('/login');
+  try {
+    const user = await User.findOne({ where: { username } });
+    if (user && await bcrypt.compare(password, user.password)) {
+      req.session.userId = user.id;
+      return res.redirect('/dashboard');
+    } else {
+      return res.redirect('/login');
+    }
+  } catch (error) {
+    res.status(500).send('Error during login');
   }
 });
 
 // 대시보드 페이지 라우트
 app.get('/dashboard', (req, res) => {
   if (req.session.userId) {
-    res.send(`<h1>Welcome ${req.session.userId}</h1><a href="/logout">Logout</a>`);
+    res.send(`<h1>Welcome</h1><a href="/logout">Logout</a>`);
   } else {
     res.redirect('/login');
   }
@@ -64,6 +70,6 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });
