@@ -9,31 +9,29 @@
 >HTML
 
 # selenium 실행을 위한 환경 설정
+'''bash
+brew install python
+pip install selenium
 
->brew install python
-
->pip install selenium
-
->실행시
->python crawler.py
-
+실행시
+python crawler.py
+'''
 # web 실행을 위한 환경변수 설정
-
-> npm init -y
-
-> npm install express bcrptjs express-session body-parser
-
-> npm install mysql2 sequelize
+'''bash
+npm init -y
+npm install express bcrptjs express-session body-parser
+npm install mysql2 sequelize
+'''
 
 ### DB 설정
-> CREATE DATABASE mydatabase;
-
-> CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'mypassword';
-
->GRANT ALL PRIVILEGES ON mydatabase.* TO 'myuser'@'localhost';
-
->FLUSH PRIVILEGES;
+'''sql
+CREATE DATABASE mydatabase;
+CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'mypassword';
+GRANT ALL PRIVILEGES ON mydatabase.* TO 'myuser'@'localhost';
+FLUSH PRIVILEGES;
+'''
 
 ### 실행 방법
-> node server.js
-
+'''bash
+node server.js
+'''
