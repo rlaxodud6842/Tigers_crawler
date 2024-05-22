@@ -3,7 +3,7 @@
 
 
 #개발환경
->python
->nodeJs
->JavaScript
+>python,
+>nodeJs,
+>JavaScript,
 >HTML
