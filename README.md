@@ -11,7 +11,9 @@
 # web 실행을 위한 환경변수 설정
 
 > npm init -y
+
 > npm install express bcrptjs express-session body-parser
+
 > npm install mysql2 sequelize
 
 ### 실행 방법
