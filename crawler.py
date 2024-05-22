@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
 
 import time
 
@@ -43,19 +44,13 @@ time.sleep(0.5)
 driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.innerVFrameSet.innerHFrameSet.innerVFrameSet2.WorkFrame.0001300.form.rdHakjum.radioitem1:icontext"]/img').click()
 time.sleep(1)
 
-'''
+
+i=0
 flag = True
-i = 1
-while flag :
-    selector = By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.innerVFrameSet.innerHFrameSet.innerVFrameSet2.WorkFrame.0001300.form.Tab01.tabpage1.form.Grid00.body.gridrow_'+ str(i) + '"]'
-    if (driver.find_element(selector).size() != 0):
-        temp = driver.find_element(selector)
+while flag:
+    try :
+        element = driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.innerVFrameSet.innerHFrameSet.innerVFrameSet2.WorkFrame.0001300.form.Tab01.tabpage1.form.Grid00.body.gridrow_'+ str(i) + '"]')
+        print(element.get_attribute('aria-label'))
         i = i + 1
-    else:
+    except NoSuchElementException:
         flag = False
-'''
-
-
-for i in range(1, 27):
-    temp = driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.innerVFrameSet.innerHFrameSet.innerVFrameSet2.WorkFrame.0001300.form.Tab01.tabpage1.form.Grid00.body.gridrow_'+ str(i) + '"]')
-    print(temp.get_attribute('aria-label'))
