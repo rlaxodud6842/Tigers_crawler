@@ -12,8 +12,10 @@
 ```bash
 brew install python
 pip install selenium
+```
 
-실행시
+### 실행 방법
+```bash
 python crawler.py
 ```
 
