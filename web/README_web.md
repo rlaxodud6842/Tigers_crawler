@@ -1,8 +1,10 @@
-# ¼­¹ö ½ÇÇàÀ» À§ÇÑ È¯°æ¼³Á¤
+# ì„œë²„ ì‹¤í–‰ì„ ìœ„í•œ í™˜ê²½ì„¤ì •
 
 > npm init -y
+> 
 > npm install express bcrptjs express-session body-parser
+> 
 > npm install mysql2 sequelize
 
-### ½ÇÇàÇÏ´Â ¹æ¹ý
+### ì‹¤í–‰í•˜ëŠ” ë°©ë²•
 > node server.js
