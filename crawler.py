@@ -18,8 +18,8 @@ def craw() :
     URL = "https://sso.daegu.ac.kr/dgusso/ext/tigersstd/login_form.do?Return_Url=https://tigersstd.daegu.ac.kr/nxrun/ssoLogin.jsp"
     driver.get(URL)
 
-    id = "ID"
-    passwd = "passwd'"
+    id = "id"
+    passwd = "passwd"
 
 
     driver.find_element(By.XPATH, '//*[@id="usr_id"]').click()
