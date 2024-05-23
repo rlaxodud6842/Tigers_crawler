@@ -16,7 +16,7 @@ pip install selenium
 
 ### 실행 방법
 ```bash
-python crawler.py
+python chatgpt.py
 ```
 
 # web 실행을 위한 환경변수 설정
@@ -38,3 +38,7 @@ FLUSH PRIVILEGES;
 ```bash
 node server.js
 ```
+
+### Todo
+- 유저 정보 입력받는것 처리
+- 에러 핸들링
