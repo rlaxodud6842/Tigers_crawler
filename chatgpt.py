@@ -15,11 +15,11 @@ def chat_with_gpt(prompt):
     message = response.choices[0].message.content.strip()
     return message
 
+def crawler_and_gpt():
+    user_grade = crawler.craw()
+    string = ""
+    for grade in user_grade:
+        string += grade
 
-user_grade = crawler.craw()
-string = ""
-for grade in user_grade:
-    string += grade
-
-print("gpt 질의중")
-print(chat_with_gpt(string + "These are my grades, and please organize them easily by year and semester To Korean"))
+    print("gpt 질의중")
+    print(chat_with_gpt(string + "These are my grades, and please organize them easily by year and semester To Korean"))
