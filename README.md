@@ -16,7 +16,7 @@ pip install selenium
 
 ### 실행 방법
 ```bash
-python chatgpt.py
+python main.py
 ```
 
 # web 실행을 위한 환경변수 설정
