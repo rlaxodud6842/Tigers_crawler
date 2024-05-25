@@ -34,6 +34,11 @@ GRANT ALL PRIVILEGES ON mydatabase.* TO 'myuser'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
+### 이메일 관련 패키지
+```bash
+npm install nodemailer crypto
+```
+
 ### 실행 방법
 ```bash
 node server.js
