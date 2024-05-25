@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
+    <title>대시보드</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,8 +31,8 @@
             margin-top: 10px;
             color: #555;
         }
-        input, button {
-            width: 90%;
+        select, button {
+            width: 100%;
             padding: 10px;
             margin-top: 10px;
             border: 1px solid #ddd;
@@ -65,20 +65,30 @@
     </style>
 </head>
 <body>
-    <h2>회원가입</h2>
-    <form action="/register" method="POST">
-        <label for="username">사용자 이름:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" name="password" required>
-        <label for="email">이메일:</label>
-        <input type="email" id="email" name="email" required>
-        <button type="submit">회원가입</button>
+    <h2>년도 및 학기 선택</h2>
+    <form action="/submit-selection" method="POST">
+        <label for="year">년도:</label>
+        <select id="year" name="year" required>
+            <option value="">년도 선택</option>
+            <option value="2022">2019</option>
+            <option value="2023">2020</option>
+            <option value="2024">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+        </select>
+        <label for="semester">학기:</label>
+        <select id="semester" name="semester" required>
+            <option value="">학기 선택</option>
+            <option value="1">1학기</option>
+            <option value="2">2학기</option>
+        </select>
+        <button type="submit">확인</button>
     </form>
     <nav>
         <ul>
-            <li><a href="/login">로그인</a></li>
-            <li><a href="/reset">비밀번호 재설정</a></li>
+            <li><a href="/delete">계정 삭제</a></li>
+            <li><a href="/logout">로그아웃</a></li>
         </ul>
     </nav>
 </body>
