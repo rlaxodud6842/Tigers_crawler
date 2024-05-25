@@ -1,4 +1,9 @@
-import crawler
 import chatgpt
 
-chatgpt.crawler_and_gpt()
+
+def main():
+    chatgpt.crawler_and_gpt()
+
+
+if __name__ == '__main__':
+    main()
