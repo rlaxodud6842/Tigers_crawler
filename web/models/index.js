@@ -7,7 +7,7 @@ const sequelize = new Sequelize('mydatabase', 'myuser', 'mypassword', {
 
 const User = require('./user')(sequelize);
 
-sequelize.sync().then(() => {
+sequelize.sync({ alter: true }).then(() => {
   console.log('Database & tables created!');
 }).catch(err => {
   console.error('Unable to connect to the database:', err);
@@ -17,3 +17,4 @@ module.exports = {
   sequelize,
   User
 };
+
