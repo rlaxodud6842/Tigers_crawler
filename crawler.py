@@ -19,7 +19,7 @@ def craw():
     id = "id"
     passwd = "passwd"
 
-
+    print("로그인 시작")
     driver.find_element(By.XPATH, '//*[@id="usr_id"]').click()
     time.sleep(1)
     driver.find_element(By.XPATH, '//*[@id="usr_id"]').send_keys(id)
@@ -40,6 +40,7 @@ def craw():
     time.sleep(2)
     driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.innerVFrameSet.innerHFrameSet.innerVFrameSet2.WorkFrame.0001300.form.rdHakjum.radioitem1:icontext"]/img').click()
     time.sleep(2)
+    print("로그인 종료")
 
     answer = []
     i = 0
