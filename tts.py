@@ -1,6 +1,5 @@
 import gtts
 import playsound as ps
-import os
 class TTS():
     def play_sound(self,sentence):
         print("TTS 변환중")

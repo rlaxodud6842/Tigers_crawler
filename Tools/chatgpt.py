@@ -1,6 +1,5 @@
 from openai import OpenAI
-import time
-import crawler
+import Tools.crawler
 # ChatGPT 상호 작용 함수
 def chat_with_gpt(prompt):
     # 중요!!: 발급받은 API Key를 입력해야 함
@@ -16,10 +15,10 @@ def chat_with_gpt(prompt):
     return message
 
 def crawler_and_gpt():
-    user_grade = crawler.craw()
+    user_grade = Tools.crawler.craw()
     string = ""
     for grade in user_grade:
         string += grade
 
     print("gpt 질의중")
-    print(chat_with_gpt(string + "These are my grades, and please organize them easily by year and semester To Korean"))
+    return chat_with_gpt(string + "These are my grades, and please organize them easily by year and semester To Korean")
