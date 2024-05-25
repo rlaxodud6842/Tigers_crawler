@@ -22,7 +22,7 @@ python main.py
 # web 실행을 위한 환경변수 설정
 ```bash
 npm init -y
-npm install express bcrptjs express-session body-parser
+npm install express bcryptjs express-session body-parser
 npm install mysql2 sequelize
 ```
 
