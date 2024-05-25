@@ -1,8 +1,14 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,python,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,python,node
 
+### TTS ###
+grade_voice.mp3
+
+
 ### pycharm###
 .idea/
+
+
 ### macOS ###
 # General
 .DS_Store
