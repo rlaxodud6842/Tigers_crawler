@@ -52,6 +52,7 @@ vim .env
 
 ### .env 파일 세팅
 ```bash
+# 띄어쓰기 없이 작성하여야함
 # .env
 key="본인의 API_KEY"
 ```
