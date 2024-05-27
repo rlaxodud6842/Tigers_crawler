@@ -44,6 +44,18 @@ npm install nodemailer crypto
 node server.js
 ```
 
+### API_KEY 설정 방법
+```bash
+pip install python-dotenv
+vim .env
+```
+
+### .env 파일 세팅
+```bash
+# .env
+key="본인의 API_KEY"
+```
+
 ### Todo
 - 유저 정보 입력받는것 처리
 - 에러 핸들링
