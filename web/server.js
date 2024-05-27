@@ -2,9 +2,9 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const { exec } = require('child_process');
+const { execFile } = require('child_process');
 const path = require('path');
-const { User } = require('./models');  // ./models/index.js를 가져옴
+const { User } = require('./models');
 
 const app = express();
 const PORT = 3000;
@@ -18,17 +18,14 @@ app.use(session({
 
 app.use(express.static('public'));
 
-// 회원가입 페이지 라우트
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/register.html'));
 });
 
-// 로그인 페이지 라우트
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/login.html'));
 });
 
-// 회원가입 처리 라우트
 app.post('/register', async (req, res) => {
   const { username, password, email } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -41,13 +38,14 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// 로그인 처리 라우트
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ where: { username } });
     if (user && await bcrypt.compare(password, user.password)) {
       req.session.userId = user.id;
+      req.session.username = username;
+      req.session.password = password;  // 이 부분은 보안상으로는 좋지 않지만, 예제의 간편함을 위해 추가
       return res.redirect('/dashboard');
     } else {
       return res.redirect('/login');
@@ -58,7 +56,6 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// 대시보드 페이지 라우트
 app.get('/dashboard', (req, res) => {
   if (req.session.userId) {
     res.sendFile(path.join(__dirname, 'public/dashboard.html'));
@@ -67,18 +64,15 @@ app.get('/dashboard', (req, res) => {
   }
 });
 
-// 로그아웃 라우트
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/login');
 });
 
-// 사용자 삭제 페이지 라우트
 app.get('/delete', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/delete.html'));
 });
 
-// 사용자 삭제 처리 라우트
 app.post('/delete', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -94,12 +88,10 @@ app.post('/delete', async (req, res) => {
   }
 });
 
-// 비밀번호 재설정 요청 페이지 라우트
 app.get('/reset', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/reset.html'));
 });
 
-// 비밀번호 재설정 요청 처리 라우트
 app.post('/reset', async (req, res) => {
   const { email } = req.body;
   try {
@@ -135,7 +127,6 @@ app.post('/reset', async (req, res) => {
   }
 });
 
-// 비밀번호 재설정 페이지 라우트
 app.get('/reset/:token', (req, res) => {
   const token = req.params.token;
   if (!resetTokens[token]) {
@@ -144,7 +135,6 @@ app.get('/reset/:token', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/reset-password.html'));
 });
 
-// 비밀번호 재설정 처리 라우트
 app.post('/reset/:token', async (req, res) => {
   const token = req.params.token;
   const { password } = req.body;
@@ -171,15 +161,21 @@ app.post('/reset/:token', async (req, res) => {
   }
 });
 
-// 학기 선택 처리 라우트
 app.post('/submit-selection', (req, res) => {
   const { year, semester } = req.body;
-  // 여기에서 년도와 학기를 처리하는 로직을 추가합니다.
-  console.log(`Selected year: ${year}, semester: ${semester}`);
+  const username = req.session.username;
+  const password = req.session.password;
   
-  // Python 스크립트 실행
+  if (!username || !password) {
+    return res.status(400).send('User not logged in');
+  }
+
+  console.log(`Selected year: ${year}, semester: ${semester}, username: ${username}`);
+
   const scriptPath = path.join(__dirname, '..', 'main.py');
-  exec(`python3 ${scriptPath}`, (error, stdout, stderr) => {
+  const args = [username, password, year, semester];
+
+  execFile('python3', [scriptPath, ...args], (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing Python script: ${error.message}`);
       return res.status(500).send('Error executing Python script');
@@ -196,3 +192,4 @@ app.post('/submit-selection', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });
+
