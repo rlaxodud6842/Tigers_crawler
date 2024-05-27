@@ -1,9 +1,13 @@
+from dotenv import load_dotenv
 from openai import OpenAI
+import os
 import Tools.crawler
+
 # ChatGPT 상호 작용 함수
 def chat_with_gpt(prompt):
-    # 중요!!: 발급받은 API Key를 입력해야 함
-    client = OpenAI(api_key="API_KEY")
+    load_dotenv()
+    key = os.environ.get('key')
+    client = OpenAI(api_key = key)
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -20,6 +24,7 @@ def crawler_and_gpt(ID, PW, year, semester):
     for grade in user_grade:
         string += grade
 
+    print(string)
     print("gpt 질의중")
     print(chat_with_gpt(f"{string}. It's my grade. Please summarize your grades in Korean for the {year} {semester}"))
     return chat_with_gpt(string + f"It's my grade. Please summarize your grades in Korean for the {year} {semester}")
