@@ -165,7 +165,7 @@ app.post('/submit-selection', (req, res) => {
   const { year, semester } = req.body;
   const username = req.session.username;
   const password = req.session.password;
-  
+
   if (!username || !password) {
     return res.status(400).send('User not logged in');
   }
@@ -173,9 +173,11 @@ app.post('/submit-selection', (req, res) => {
   console.log(`Selected year: ${year}, semester: ${semester}, username: ${username}`);
 
   const scriptPath = path.join(__dirname, '..', 'main.py');
+  const pythonExecutable = path.join(__dirname, '../venv/Scripts/python.exe');
   const args = [username, password, year, semester];
 
-  execFile('python3', [scriptPath, ...args], (error, stdout, stderr) => {
+  execFile('python', [scriptPath, ...args], (error, stdout, stderr) => {
+
     if (error) {
       console.error(`Error executing Python script: ${error.message}`);
       return res.status(500).send('Error executing Python script');
@@ -189,7 +191,6 @@ app.post('/submit-selection', (req, res) => {
   });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on http://0.0.0.0:${PORT}`);
+app.listen(PORT, '127.0.0.1', () => {
+  console.log(`Server is running on http://127.0.0.1:${PORT}`);
 });
-

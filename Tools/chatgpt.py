@@ -25,5 +25,4 @@ def crawler_and_gpt(ID, PW, year, semester):
         string += grade
 
     print("gpt 질의중")
-    print(chat_with_gpt(f"{string}. It's my grade. Please summarize your grades in Korean for the {year} {semester}"))
-    return chat_with_gpt(string + f"It's my grade. Please summarize your grades in Korean for the {year} {semester}")
+    return chat_with_gpt(f"It's my grade {string}. Please summarize your grades in Korean. Don't forget any information!")
