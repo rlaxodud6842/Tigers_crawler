@@ -5,6 +5,7 @@ from selenium.common.exceptions import NoSuchElementException
 import time
 
 def craw(ID, PW, year, semester):
+
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('window-size=5000, 5000')
@@ -31,7 +32,7 @@ def craw(ID, PW, year, semester):
     time.sleep(2)
     driver.find_element(By.XPATH, '//*[@id="idLoginForm"]/div[1]/div[3]/button').click()
 
-    time.sleep(6)
+    time.sleep(10)
 
     driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.TopFrame.form.mnTop.item1:text"]').click()
     time.sleep(2)
@@ -46,7 +47,7 @@ def craw(ID, PW, year, semester):
     i = 0
     flag = True
     print("크롤링 시작")
-	while flag:
+    while flag:
         try:
             element = driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.innerVFrameSet.innerHFrameSet.innerVFrameSet2.WorkFrame.0001300.form.Tab01.tabpage1.form.Grid00.body.gridrow_' + str(i) + '"]')
             temp = element.get_attribute('aria-label')
