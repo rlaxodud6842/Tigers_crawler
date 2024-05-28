@@ -59,9 +59,12 @@ def craw(ID, PW, year, semester):
             i = i + 1
         except NoSuchElementException:
             flag = False
-
-    selection = year+"년도 "+semester + "학기 "
-    answer = filter_strings(answer,selection)
+            
+    if year == "all":
+        return answer
+    else:
+        selection = year+"년도 "+semester + "학기 "
+        answer = filter_strings(answer,selection)
 
     print("크롤링 종료")
     return answer
