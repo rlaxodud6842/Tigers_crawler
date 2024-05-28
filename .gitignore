@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,python,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,python,node
 
+### json ###
+package-lock.json
+package.json
+
 ### API_KEY ###
 .env
 
