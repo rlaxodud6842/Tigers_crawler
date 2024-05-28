@@ -22,6 +22,10 @@ app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/register.html'));
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/login.html'));
 });
@@ -79,7 +83,7 @@ app.post('/delete', async (req, res) => {
     const user = await User.findOne({ where: { username } });
     if (user && await bcrypt.compare(password, user.password)) {
       await user.destroy();
-      res.send(`User ${username} deleted successfully.`);
+      res.sendFile(path.join(__dirname, 'public/login.html'));
     } else {
       res.send(`Invalid username or password.`);
     }
@@ -165,7 +169,7 @@ app.post('/submit-selection', (req, res) => {
   const { year, semester } = req.body;
   const username = req.session.username;
   const password = req.session.password;
-  
+
   if (!username || !password) {
     return res.status(400).send('User not logged in');
   }
@@ -173,9 +177,10 @@ app.post('/submit-selection', (req, res) => {
   console.log(`Selected year: ${year}, semester: ${semester}, username: ${username}`);
 
   const scriptPath = path.join(__dirname, '..', 'main.py');
+  const pythonExecutable = path.join(__dirname, '../venv/Scripts/python.exe');
   const args = [username, password, year, semester];
 
-  execFile('python3', [scriptPath, ...args], (error, stdout, stderr) => {
+  execFile('python', [scriptPath, ...args], (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing Python script: ${error.message}`);
       return res.status(500).send('Error executing Python script');
@@ -185,11 +190,10 @@ app.post('/submit-selection', (req, res) => {
       return res.status(500).send('Python script error');
     }
     console.log(`Python script stdout: ${stdout}`);
-    res.send(`Python script executed successfully with output: ${stdout}`);
+    res.sendFile(path.join(__dirname, 'public/done.html'));
   });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on http://0.0.0.0:${PORT}`);
+app.listen(PORT, '127.0.0.1', () => {
+  console.log(`Server is running on http://127.0.0.1:${PORT}`);
 });
-

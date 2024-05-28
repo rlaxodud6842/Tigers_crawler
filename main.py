@@ -1,10 +1,9 @@
 import Tools.chatgpt
 from tts import TTS
 import argparse
-import time
+
 
 def main(username, password, year, semester):
-    print(f"Year: {year}, Semester: {semester}")  # 값 확인
     tts = TTS()
     sentence = Tools.chatgpt.crawler_and_gpt(username, password, year, semester)
     tts.play_sound(sentence)
@@ -17,5 +16,5 @@ if __name__ == '__main__':
     parser.add_argument('year', type=str, help='년도')
     parser.add_argument('semester', type=str, help='학기')
     args = parser.parse_args()
-    
+
     main(args.username, args.password, args.year, args.semester)
