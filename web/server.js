@@ -179,7 +179,7 @@ app.post('/submit-selection', (req, res) => {
   const scriptPath = path.join(__dirname, '..', 'main.py');
   const pythonExecutable = path.join(__dirname, '../venv/Scripts/python.exe');
   const args = [username, password, year, semester];
-  res.sendFile(path.join(__dirname, 'public/crawling.html'));
+
   execFile('python', [scriptPath, ...args], (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing Python script: ${error.message}`);
