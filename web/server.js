@@ -190,10 +190,11 @@ app.post('/submit-selection', (req, res) => {
       return res.status(500).send('Python script error');
     }
     console.log(`Python script stdout: ${stdout}`);
-    res.sendFile(path.join(__dirname, 'public/done.html'));
+    
+    res.sendStatus(200);  // 응답 본문 없이 성공 상태만 반환
   });
 });
 
-app.listen(PORT, '127.0.0.1', () => {
-  console.log(`Server is running on http://127.0.0.1:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });
