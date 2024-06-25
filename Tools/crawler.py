@@ -62,12 +62,25 @@ def craw(ID, PW, year, semester):
             
     if year == "all":
         return answer
-    else:
-        selection = year+"년도 "+semester + "학기 "
+    else:        
+        selection = str(year)+"년도 "+str(semester) + "학기 "
         answer = filter_strings(answer,selection)
-
+        title = ""
+        mystr = ""
+        for item in answer:
+            #'2023년도 2학기 빅컨셉+ 90 A'로 되어있기에 분리함.
+            contents = item.split(" ")
+            if (len(title) <= 0):
+                title = contents[0] +" " + contents[1] + " "
+            
+            subject = contents[2] #과목
+            point = contents[3] #점수
+            grade = contents[4] #등급
+            
+            mystr += subject + " " + point + " " + grade + "  "
+        new_answer = title + mystr 
     print("크롤링 종료")
-    return answer
+    return new_answer
 
 def filter_strings(arr,selection):
     return [s for s in arr if f"{selection}" in s]
