@@ -1,11 +1,11 @@
-import Tools.chatgpt
+import Tools.crawler
 from tts import TTS
 import argparse
 
 
 def main(username, password, year, semester):
     tts = TTS()
-    sentence = Tools.chatgpt.crawler_and_gpt(username, password, year, semester)
+    sentence = Tools.crawler.craw(username, password, year, semester)
     tts.play_sound(sentence)
 
 
