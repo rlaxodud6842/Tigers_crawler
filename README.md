@@ -1,7 +1,7 @@
 # Tigers crawler 구현
 >대구대학교 타이거즈 화면 성적을 음성 혹은 텍스트로 반환해주는 프로그램
 
-[타이거즈 크롤러 사이트](tg.mydu.duckdns.org)
+[성적 조회 사이트](https://tg.mydu.duckdns.org/)
 
 # 개발환경
 >python,
