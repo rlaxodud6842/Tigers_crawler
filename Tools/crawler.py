@@ -1,45 +1,44 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 import time
 
-def craw(ID, PW, year, semester):
+def craw(id, passwd, year, semester):
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('window-size=5000, 5000')
     driver = webdriver.Chrome(options=options)
     driver.set_window_size(5000, 5000)
 
-    time.sleep(1)
 
     URL = "https://sso.daegu.ac.kr/dgusso/ext/tigersstd/login_form.do?Return_Url=https://tigersstd.daegu.ac.kr/nxrun/ssoLogin.jsp"
     driver.get(URL)
-
-    id = ID
-    passwd = PW
-
     print("로그인 시작")
+
     driver.find_element(By.XPATH, '//*[@id="usr_id"]').click()
-    time.sleep(1)
+    WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="usr_id"]')))
+    
     driver.find_element(By.XPATH, '//*[@id="usr_id"]').send_keys(id)
-
     driver.find_element(By.XPATH, '//*[@id="usr_pw"]').click()
-    time.sleep(1)
+    WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="usr_pw"]')))
+    
     driver.find_element(By.XPATH, '//*[@id="usr_pw"]').send_keys(passwd)
-
-    time.sleep(2)
+    WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="idLoginForm"]/div[1]/div[3]/button')))
+    
     driver.find_element(By.XPATH, '//*[@id="idLoginForm"]/div[1]/div[3]/button').click()
-
-    time.sleep(10)
-
+    WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Mainframe.VFrameSet.TopFrame.form.mnTop.item1:text"]')))
+    
     driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.TopFrame.form.mnTop.item1:text"]').click()
-    time.sleep(2)
+    WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.LeftFrame.form.tabMenu.tabMnu.form.grdMnLeft.body.gridrow_2.cell_2_0.celltreeitem.treeitemtext:text"]')))
+
 
     driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.LeftFrame.form.tabMenu.tabMnu.form.grdMnLeft.body.gridrow_2.cell_2_0.celltreeitem.treeitemtext:text"]').click()
-    time.sleep(2)
-    driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.innerVFrameSet.innerHFrameSet.innerVFrameSet2.WorkFrame.0001300.form.rdHakjum.radioitem1:icontext"]/img').click()
-    time.sleep(2)
+    WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.innerVFrameSet.innerHFrameSet.innerVFrameSet2.WorkFrame.0001300.form.rdHakjum.radioitem1:icontext"]/img')))
+
+    driver.find_element(By.XPATH, '//*[@id="Mainframe.VFrameSet.HFrameSet.innerVFrameSet.innerHFrameSet.innerVFrameSet2.WorkFrame.0001300.form.rdHakjum.radioitem1:icontext"]/img').click()  
     print("로그인 종료")
 
     answer = []
@@ -58,8 +57,7 @@ def craw(ID, PW, year, semester):
             answer.append(grade)
             i = i + 1
         except NoSuchElementException:
-            flag = False
-            
+            flag = False      
     if year == "all":
         return answer
     else:
