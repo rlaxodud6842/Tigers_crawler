@@ -1,63 +1,20 @@
-# Tigers crawler 구현
->대구대학교 타이거즈 화면 성적을 음성 혹은 텍스트로 반환해주는 프로그램
+# Tigers crawler
+대구대학교 타이거즈 화면 성적을 음성 혹은 텍스트로 반환해주는 프로그램
+>[Tigers crawler](https://tg.mydu.duckdns.org/)
 
-[성적 조회 사이트](https://tg.mydu.duckdns.org/)
+## 프로젝트 목표
+대구대학교 시각장애 학우들은 성적 조회에 어려움을 겪음. 허나 이를 해결할 방안이 당시 없었음. 따라서 시각장애 학우들에게 음성으로 성적을 조회하게끔 해주는 것이 목표
 
-# 개발환경
->python,
->nodeJs,
->JavaScript,
->HTML
+### 기대효과 
+> 대구대학교 시각장애 학우들도 성적조회에 대한 접근성 향상.
 
-# selenium 실행을 위한 환경 설정
-```bash
-brew install python
-pip install selenium
-```
+## 아키텍처
+![image](https://github.com/user-attachments/assets/74abc67c-b4d0-4bfb-aad5-b47ff0f166d0)
 
-### 실행 방법
-```bash
-python main.py
-```
+## 개발 스택
+> Python, JavaScript, Node.js, HTML, CSS<br> 
 
-# web 실행을 위한 환경변수 설정
-```bash
-npm init -y
-npm install express bcryptjs express-session body-parser
-npm install mysql2 sequelize
-```
-
-### DB 설정
-```sql
-CREATE DATABASE mydatabase;
-CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'mypassword';
-GRANT ALL PRIVILEGES ON mydatabase.* TO 'myuser'@'localhost';
-FLUSH PRIVILEGES;
-```
-
-### 이메일 관련 패키지
-```bash
-npm install nodemailer crypto
-```
-
-### 실행 방법
-```bash
-node server.js
-```
-
-### API_KEY 설정 방법
-```bash
-pip install python-dotenv
-vim .env
-```
-
-### .env 파일 세팅
-```bash
-# 띄어쓰기 없이 작성하여야함
-# .env
-key="본인의 API_KEY"
-```
-
-### Todo
-- 유저 정보 입력받는것 처리
-- 에러 핸들링
+## 핵심 기능 
+> 사용자 조회 희망 학기에 해당하는 성적 크롤링<br>
+> 크롤링된 성적을 음성으로 듣기 편하게 적절하게 가공<br>
+> 가공된 성적 음성 들려줌<br>
